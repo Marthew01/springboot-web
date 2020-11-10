@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zry.timmer.dao.TaskMapper">
+
+    <resultMap type="com.zry.timmer.entity.Task" id="taskResultMap">
+        <!-- 配置映射的订单信息 -->
+        <!-- id：指定查询列中的唯 一标识，订单信息的中的唯 一标识，如果有多个列组成唯一标识，配置多个id
+            column：db
+            property：bean
+          -->
+        <id column="id" property="ID"/>
+        <result column="title" property="title"/>
+        <result column="startTime" property="startTime"/>
+        <result column="endTime" property="endTime"/>
+        <result column="orderBy" property="orderBy"/>
+        <result column="imagePath" property="imagePath"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <select id="getAllTask" resultMap="taskResultMap">
+        select * from task;
+    </select>
+    <insert id="addTask" parameterType="com.zry.timmer.entity.Task">
+        insert into task
+        (title,startTime,endTime,orderBy,imagePath)
+        values
+        (#{title},#{startTime},#{endTime},#{orderBy},#{imagePath});
+    </insert>
+    <update id="endTask" parameterType="com.zry.timmer.entity.Task">
+        update task set status=#{status} where id=#{id}
+    </update>
+
+    <!--<delete id="deleteUserById">
+        delete from user where id=#{id}
+    </delete>-->
+</mapper>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>timmer</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
+
+    <link th:href="@{/assets/css/upload.css}" href="/assets/css/upload.css" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">--><!--演示页面样式，使用时可以不引用-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.2/site/docs/4.5/assets/css/docs.min.css}"  href="https://getbootstrap.com/assets/css/docs.min.css" />
+    <link th:href="@{http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/assets/theme/css/base.css}" href="assets/theme/css/base.css" rel="stylesheet">
+    <link th:href="@{/css/highlight.min.css}" href="css/highlight.min.css" rel="stylesheet">
+    <link th:href="@{/assets/theme/css/tempusdominus-bootstrap-4.css}" href="assets/theme/css/tempusdominus-bootstrap-4.css" rel="stylesheet">
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}" src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.5.2/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <!--<link href="form-validation.css" rel="stylesheet">-->
+  </head>
+  <body class="bg-light">
+    <div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="../asserts/img/bootstrap-solid.svg" th:src="@{/asserts/img/bootstrap-solid.svg}" alt="" width="72" height="72">
+    <h2>Setting Timmer</h2>
+    <p class="lead">初始化设置</p>
+  </div>
+  <div class="row">
+
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Setting</h4>
+      <form class="needs-validation" novalidate th:action="@{/sets}" method="post">
+
+        <!--需要区分是修改还是添加-->
+        <!--下面这个就是判断有没有员工bean 有就是修改 put 否则就是添加 post-->
+
+     <!--   <input type="hidden" name="_method" value="put" th:if="${task!=null}"/>
+        <input type="hidden" name="id" th:if="${task!=null}" th:value="${task.id}">
+-->
+
+        <div class="mb-3">
+          <label for="title">标题</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" id="title" name="title" placeholder="title" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your title is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label id="linked-pickers">时间设定</label>
+        <div class="input-group">
+        <div class="container">
+          <label >开始</label>
+          <div class='col-md-5'>
+            <div class="form-group">
+              <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" name="startTime" data-target="#datetimepicker7"/>
+                <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label>结束</label>
+          <div class='col-md-5'>
+            <div class="form-group">
+              <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" name="endTime" data-target="#datetimepicker8"/>
+                <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <script type="text/javascript">
+          $(function () {
+            $('#datetimepicker7').datetimepicker();
+            $('#datetimepicker8').datetimepicker({
+              useCurrent: false
+            });
+            $("#datetimepicker7").on("change.datetimepicker", function (e) {
+              $('#datetimepicker8').datetimepicker('minDate', e.date);
+            });
+            $("#datetimepicker8").on("change.datetimepicker", function (e) {
+              $('#datetimepicker7').datetimepicker('maxDate', e.date);
+            });
+          });
+        </script>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="image">背景图<span class="text-muted">(可选)</span></label><br>
+          <a href="javascript:;" class="file">选择文件
+            <input type="file" name="" id="">
+          </a>
+          <input type="hidden" name="imagePath" id="image">
+
+          <script type="text/javascript">
+            $(".file").on("change","input[type='file']",function(){
+              var filePath=$(this).val();
+              $("#image").val(filePath);
+              /*alert(filePath);*/
+              /*if(filePath.indexOf("jpg")!=-1 || filePath.indexOf("png")!=-1){
+                $(".fileerrorTip").html("").hide();
+                var arr=filePath.split('\\');
+                var fileName=arr[arr.length-1];
+                $(".showFileName").html(fileName);
+              }else{
+                $(".showFileName").html("");
+                $(".fileerrorTip").html("您未上传文件，或者您上传文件类型有误！").show();
+                return false
+              }*/
+            })
+          </script>
+        </div>
+
+        <hr class="mb-4">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="same-address">
+          <label class="custom-control-label" for="same-address">记住我</label>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017-2020 created by person</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.slim.min.js}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script th:src="@{/webjars/jquery/3.5.1/jquery.slim.min.js}" src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script th:src="@{/webjars/bootstrap/4.5.2/dist/js/bootstrap.bundle.min.js}" src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}" src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/moment-with-locales.min.js}" src="js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/moment-timezone-with-data-2012-2022.min.js}" src="js/moment-timezone-with-data-2012-2022.min.js"></script>
+    <script src="assets/theme/js/base.js" th:src="@{/assets/theme/js/base.js}"></script>
+    <script src="js/highlight.min.js" th:src="@{/js/highlight.min.js}"></script>
+    <script src="assets/theme/js/tempusdominus-bootstrap-4.js" th:src="@{/assets/theme/js/tempusdominus-bootstrap-4.js}"></script>
+  </body>
+</html>
