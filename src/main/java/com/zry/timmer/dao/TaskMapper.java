@@ -1,7 +1,7 @@
 package com.zry.timmer.dao;
 
 import com.zry.timmer.entity.Task;
-import org.mybatis.spring.annotation.MapperScan;
+//import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
