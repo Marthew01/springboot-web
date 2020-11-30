@@ -17,7 +17,6 @@ public class TaskController {
 
     @GetMapping("/login")
     public String login() {
-
         return "/checkout/index";
     }
 

@@ -10,8 +10,9 @@
     </parent>
     <groupId>com.zry</groupId>
     <artifactId>timmer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>timmer</name>
+    <!--<packaging>war</packaging>-->
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -26,6 +27,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!--<exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>Spring-boot-start-tomcat</artifactId>
+                </exclusion>
+            </exclusions>-->
         </dependency>
         <!--<dependency>
             <groupId>org.mybatis.spring.boot</groupId>

@@ -26,7 +26,7 @@
        
       </div>
       <h1 class="am-header-title">
-        <a href="#title-link" class="" style="color: #8a8a8a;font-size: 16px;" id="dddjs"  ><span th:if="${task} == null">...</span> 等待倒计时</a>
+        <a href="#title-link" class="" style="color: #FF6347;font-size: 100px;" id="dddjs"  ><span th:if="${task} == null">...</span> 等待倒计时</a>
       </h1>
       <div class="am-header-right am-header-nav">
         <a href="#right-link" class="">
@@ -78,18 +78,17 @@
                 this.each(function () {     //遍历
                     var $this = $(this);
                     times();    //先执行一次，防止刷新时数字都显示为0
-                    var timer = setInterval(times, 1000);   //定时器执行
+                    var timer = setInterval(times, 500);   //定时器执行
 
                     function times() {
                         var nowDate = new Date(),
-                            // endDate = $this.data('end') ? new Date($this.data('end')) : new Date(opts.endTime),// 定义了两种方式，data-end和defaults.endTime,优先data-end
-
                             endDate = new Date(endTimer),
                             tms = endDate - nowDate,    //时间差
                             days = Math.floor(tms / 1000 / 60 / 60 / 24),
                             hours = Math.floor(tms / 1000 / 60 / 60 % 24),
                             minutes = Math.floor(tms / 1000 / 60 % 60),
                             secs = Math.floor(tms / 1000 % 60);
+                        // alertTimeout(new Date(startTimer),nowDate,endDate);
                         if (tms > 0) {  //如果时间差大于0，显示倒计时
                             $this.find(opts.day).text(addZero(days));
                             $this.find(opts.hour).text(addZero(hours));
@@ -97,13 +96,30 @@
                             $this.find(opts.sec).text(addZero(secs));
                         } else {    //否则清除定时器，倒计时结束
                             clearInterval(timer);
-                            auto.attr("src","/related/5103.wav");
-                            auto.play();
+                            auto.attr("src","/related/w7.mp3");
+                            setTimeout(rtnIndexPage,15000);
                         }
                     }
                 });
+                
+                function alertTimeout(startTime,now,endTime) {
+                    //提前15minutes结束提示音
+                    // var temp=endTime-startTime;
+                    var temp= new Date(now.setMinutes(now.getMinutes()+15)),
+                        d=endTime.getDay()==temp.getDay()?true:false,
+                        h=endTime.getHours()==temp.getHours()?true:false,
+                        m=endTime.getMinutes()==temp.getMinutes()?true:false,
+                        s=endTime.getSeconds()==temp.getSeconds()?true:false;
 
+                    if(now >startTime && d && h && m){
+                        auto.attr("src","/related/w6.mp3");
+                    }
+                }
 
+                function rtnIndexPage(){
+                    var path=getRootPath_web();
+                    window.location.href=path;
+                }
                 function addZero(t) {  //一位数加0
                     if (t < 10) {
                         return t = '0' + t;
@@ -130,6 +146,19 @@
 
                 clearInterval(tt);
             }
+        }
+
+        function getRootPath_web() {
+            //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+            var curWwwPath = window.document.location.href;
+            //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+            var pathName = window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathName);
+            //获取主机地址，如： http://localhost:8083
+            var localhostPaht = curWwwPath.substring(0, pos);
+            //获取带"/"的项目名，如：/uimcardprj
+            var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+            return (localhostPaht + projectName);
         }
     })(jQuery)
 </script>
